@@ -416,17 +416,7 @@ public class Interfaz_Grafica extends javax.swing.JFrame {
 
                         datos[2] = nomasg;
                     }
-                    //el resto de datos son los capturados en la interfaz y el calculo de la nota definitiva
-                    ArrayList lstestudiantes=reg.ListaEstudiantes();
                     
-                    for (int i = 0; i < lstestudiantes.size(); i++) {
-                        Estudiante est = (Estudiante)lstestudiantes.get(i);
-                        int cod=est.getCodigo();
-                       // if(cod==){
-                            
-                       // }
-                        
-                    }
                     
                     datos[3] = nota1.getText();
                     nota1.setText(null);
