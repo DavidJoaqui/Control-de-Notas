@@ -31,37 +31,23 @@ public class Interfaz_Grafica extends javax.swing.JFrame {
         panelmostrar.setVisible(false);
         definitiva.setEditable(false);//con esta variable inpedimos que se modifique la nota defintiva mostarda en el jtextfield definitiva
         //editamos con la clase DefaultTablaModel la tabla con la que mostraremos la informacion
-        
+
         //hacemos el llamado a los metodos de la  clase Registros para cargar los archivos a las respectivas listas declaradas en dicha clase
         try {
 
             reg.obtenerListaEstudiantes("Estudiante.txt");
             reg.obtener_Lista_Asignaturas("Asignaturas.txt");
-            
-           
+
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        //damos el nombre a cada una de las columnas de la tabla
-        modeloTabla = new DefaultTableModel();
-        modeloTabla.addColumn("CODIGO ESTUDIANTE");
-        modeloTabla.addColumn("CODIGO ASIGNATURA");
-        modeloTabla.addColumn("NOMBRE ASIGNATURA");
-        modeloTabla.addColumn("NOTA 1");
-        modeloTabla.addColumn("NOTA 2");
-        modeloTabla.addColumn("NOTA 3");
-        modeloTabla.addColumn("DEFINITIVA");
-        tabla.setModel(modeloTabla);//la tabla de la interfaz adopta o toma el modelo que instanciamos
-        
-        
-        
-        ArrayList aux=reg.asignauturas();
-            for (int i=0;i<aux.size();i++) {
-                Asignatura asg=(Asignatura)aux.get(i);
-                jcombo.addItem(asg.getNombreMateria());
-            }
 
-        
+        ArrayList aux = reg.asignauturas();
+        for (int i = 0; i < aux.size(); i++) {
+            Asignatura asg = (Asignatura) aux.get(i);
+            jcombo.addItem(asg.getNombreMateria());
+        }
+
     }
 
     @SuppressWarnings("unchecked")
@@ -416,8 +402,7 @@ public class Interfaz_Grafica extends javax.swing.JFrame {
 
                         datos[2] = nomasg;
                     }
-                    
-                    
+
                     datos[3] = nota1.getText();
                     nota1.setText(null);
                     datos[4] = nota2.getText();
@@ -509,32 +494,41 @@ public class Interfaz_Grafica extends javax.swing.JFrame {
     private void mostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mostrarActionPerformed
         panelingresa.setVisible(false);
         panelmostrar.setVisible(true);
-        try{
-        reg.obtener_Lista_Notas("Notas.txt");
-        int cont=0;
-        int aux=modeloTabla.getRowCount();
-        while(cont!=aux){
-            modeloTabla.removeRow(cont);
-            cont++;
-        }
-        
-        }catch(Exception ex){
+
+        try {
+            reg.obtener_Lista_Notas("Notas.txt");
+
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
-        ArrayList aux=reg.obtenerNotas();
+
+        modeloTabla = new DefaultTableModel();
+        //damos el nombre a cada una de las columnas de la tabla
+        modeloTabla = new DefaultTableModel();
+        modeloTabla.addColumn("CODIGO ESTUDIANTE");
+        modeloTabla.addColumn("CODIGO ASIGNATURA");
+        modeloTabla.addColumn("NOMBRE ASIGNATURA");
+        modeloTabla.addColumn("NOTA 1");
+        modeloTabla.addColumn("NOTA 2");
+        modeloTabla.addColumn("NOTA 3");
+        modeloTabla.addColumn("DEFINITIVA");
+        tabla.setModel(modeloTabla);
+
+        ArrayList aux = reg.obtenerNotas();
         for (int i = 0; i < aux.size(); i++) {
-            ConsolidadoNotas notas = (ConsolidadoNotas)aux.get(i);
-            String []fila=new String[7];
-            fila[0]=String.valueOf(notas.getCodest());
-            fila[1]=String.valueOf(notas.getCodasg());
-            fila[2]=notas.getNomasg();
-            fila[3]=String.valueOf(notas.getNota1());
-            fila[4]=String.valueOf(notas.getNota2());
-            fila[5]=String.valueOf(notas.getNota3());
-            fila[6]=notas.getDefinitiva();
+            ConsolidadoNotas notas = (ConsolidadoNotas) aux.get(i);
+            String[] fila = new String[7];
+            fila[0] = String.valueOf(notas.getCodest());
+            fila[1] = String.valueOf(notas.getCodasg());
+            fila[2] = notas.getNomasg();
+            fila[3] = String.valueOf(notas.getNota1());
+            fila[4] = String.valueOf(notas.getNota2());
+            fila[5] = String.valueOf(notas.getNota3());
+            fila[6] = notas.getDefinitiva();
             modeloTabla.addRow(fila);
         }
-        
+
+
     }//GEN-LAST:event_mostrarActionPerformed
 
     private void volverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_volverActionPerformed
