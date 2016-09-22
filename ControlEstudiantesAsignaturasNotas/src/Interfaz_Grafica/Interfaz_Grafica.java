@@ -2,6 +2,7 @@ package Interfaz_Grafica;
 
 import Archivos.Archivos;
 import Logica_Notas.Asignatura;
+import Logica_Notas.ConsolidadoNotas;
 import Logica_Notas.Estudiante;
 import Logica_Notas.Notas;
 import Logica_Notas.Registros;
@@ -36,6 +37,7 @@ public class Interfaz_Grafica extends javax.swing.JFrame {
 
             reg.obtenerListaEstudiantes("Estudiante.txt");
             reg.obtener_Lista_Asignaturas("Asignaturas.txt");
+            
            
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -50,6 +52,7 @@ public class Interfaz_Grafica extends javax.swing.JFrame {
         modeloTabla.addColumn("NOTA 3");
         modeloTabla.addColumn("DEFINITIVA");
         tabla.setModel(modeloTabla);//la tabla de la interfaz adopta o toma el modelo que instanciamos
+        
         
         
         ArrayList aux=reg.asignauturas();
@@ -414,6 +417,17 @@ public class Interfaz_Grafica extends javax.swing.JFrame {
                         datos[2] = nomasg;
                     }
                     //el resto de datos son los capturados en la interfaz y el calculo de la nota definitiva
+                    ArrayList lstestudiantes=reg.ListaEstudiantes();
+                    
+                    for (int i = 0; i < lstestudiantes.size(); i++) {
+                        Estudiante est = (Estudiante)lstestudiantes.get(i);
+                        int cod=est.getCodigo();
+                       // if(cod==){
+                            
+                       // }
+                        
+                    }
+                    
                     datos[3] = nota1.getText();
                     nota1.setText(null);
                     datos[4] = nota2.getText();
@@ -505,6 +519,32 @@ public class Interfaz_Grafica extends javax.swing.JFrame {
     private void mostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mostrarActionPerformed
         panelingresa.setVisible(false);
         panelmostrar.setVisible(true);
+        try{
+        reg.obtener_Lista_Notas("Notas.txt");
+        int cont=0;
+        int aux=modeloTabla.getRowCount();
+        while(cont!=aux){
+            modeloTabla.removeRow(cont);
+            cont++;
+        }
+        
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
+        ArrayList aux=reg.obtenerNotas();
+        for (int i = 0; i < aux.size(); i++) {
+            ConsolidadoNotas notas = (ConsolidadoNotas)aux.get(i);
+            String []fila=new String[7];
+            fila[0]=String.valueOf(notas.getCodest());
+            fila[1]=String.valueOf(notas.getCodasg());
+            fila[2]=notas.getNomasg();
+            fila[3]=String.valueOf(notas.getNota1());
+            fila[4]=String.valueOf(notas.getNota2());
+            fila[5]=String.valueOf(notas.getNota3());
+            fila[6]=notas.getDefinitiva();
+            modeloTabla.addRow(fila);
+        }
+        
     }//GEN-LAST:event_mostrarActionPerformed
 
     private void volverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_volverActionPerformed

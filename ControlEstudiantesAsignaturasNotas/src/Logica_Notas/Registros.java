@@ -16,6 +16,7 @@ public class Registros {
  //-----------------------------Listas en las cuales almacenaremos lo leido en los archivos de texto(Estudiante) y (Asignaturas)--------------------------------------- 
  private ArrayList<Estudiante> ListaEst=new ArrayList<Estudiante>();
  private ArrayList<Asignatura> ListaAsignaturas=new ArrayList<Asignatura>();
+ private ArrayList<ConsolidadoNotas> listaNotas=new ArrayList<>();
 
 
  public Registros(){}
@@ -71,21 +72,42 @@ public class Registros {
                                         arc.cerrarArchivo();
  }
  
-// public void mostrar(){
-//     System.out.println( " -------------lista Estudiantes----------------------\n");
-//       for(int i=0; i<ListaEst.size();i++){
-//    System.out.println(ListaEst.get(i).getconsecutivo()+" "+ListaEst.get(i).getIdentificacion()+"  "+ ListaEst.get(i).getNombre()+"  "+ ListaEst.get(i).getApellido()+" "+ListaEst.get(i).getCodigo()+"\n");
-// }
-//       System.out.println( "******************************************************");
-//          System.out.println( " -------------lista Asignaturas----------------------\n");
-// for(int j=0;j<ListaAsignaturas.size();j++){
-//        System.out.println( ListaAsignaturas.get(j).getCodcarrera()+" "+ListaAsignaturas.get(j).getCodmateria()+" "+ListaAsignaturas.get(j).getNombreMateria()+"\n");
-// }
-//}
+ public void obtener_Lista_Notas(String nombreArchivo)throws IOException{//metodo con el cual leemos la informacion del archivo Asignaturas
+   
+                                        arc.abrirArchivo(nombreArchivo, false);//abrimos el archivo y enviamos false para saber el archivo sera leido
+     
+                                         while(arc.puedeLeer()){//si el metodo puedeLeer retorna verdadero se ejecutara el bucle 
+					
+                                        String linea = arc.leerArchivo(); //capturamos una linea de texto leida proveniente del archivo Asignaturas
+				      //capturamos con diferentes tipos de datos la informacion del arreglo
+					String[] datos = linea.split(","); //ordenamos la informacion en un arreglo para luego capturarla
+                                        int codest=Integer.parseInt(datos[0]);
+					int codasig=Integer.parseInt(datos[1]);
+                                        String nomasg=(datos[2]);
+                                        float nota1= Float.parseFloat(datos[3]);
+                                        float nota2= Float.parseFloat(datos[4]);
+                                        float nota3= Float.parseFloat(datos[5]);
+                                        String defp1= (datos[6]);
+                                        String defp2= (datos[7]);
+                                        
+                                        ConsolidadoNotas cnts;
+                                        cnts=new ConsolidadoNotas(codest, codasig, nomasg, nota1, nota2, nota3, defp1+"."+defp2);
+                                        listaNotas.add(cnts);
+				 }
+                                        arc.cerrarArchivo();
+ }
+ 
  
  
  public ArrayList asignauturas(){
      return ListaAsignaturas;
+ }
+ public ArrayList ListaEstudiantes(){
+     return ListaEst;
+ }
+ 
+ public ArrayList obtenerNotas(){
+     return listaNotas;
  }
   public int  BuscarcodEst(int numid){
  
