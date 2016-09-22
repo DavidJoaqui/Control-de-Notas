@@ -91,7 +91,7 @@ public class Interfaz_Grafica extends javax.swing.JFrame {
         salir = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         panelingresa.setBackground(new java.awt.Color(0, 102, 204));
 
