@@ -54,7 +54,7 @@ public class Interfaz_Grafica extends javax.swing.JFrame {
     public void modelo(){
    
         //damos el nombre a cada una de las columnas de la tabla
-        modeloTabla=new DefaultTableModel();
+        
         modeloTabla.addColumn("CODIGO ESTUDIANTE");
         modeloTabla.addColumn("CODIGO ASIGNATURA");
         modeloTabla.addColumn("NOMBRE ASIGNATURA");
@@ -64,13 +64,6 @@ public class Interfaz_Grafica extends javax.swing.JFrame {
         modeloTabla.addColumn("DEFINITIVA");
         tabla.setModel(modeloTabla);
     }
-    
-    private void Limpiar_Tabla(){
-       for (int i = 0; i < tabla.getRowCount(); i++) {
-           modeloTabla.removeRow(i);
-           i-=1;
-       }
-   }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -515,7 +508,8 @@ public class Interfaz_Grafica extends javax.swing.JFrame {
     private void mostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mostrarActionPerformed
         panelingresa.setVisible(false);
         panelmostrar.setVisible(true);
-        Limpiar_Tabla();
+        
+        tabla.setModel(modeloTabla=new DefaultTableModel());
          try {
              modelo();
             
