@@ -37,6 +37,8 @@ public class Interfaz_Grafica extends javax.swing.JFrame {
 
             reg.obtenerListaEstudiantes("Estudiante.txt");
             reg.obtener_Lista_Asignaturas("Asignaturas.txt");
+            reg.obtener_Lista_Notas("Notas.txt");
+            
 
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -49,7 +51,26 @@ public class Interfaz_Grafica extends javax.swing.JFrame {
         }
 
     }
-
+    public void modelo(){
+   
+        //damos el nombre a cada una de las columnas de la tabla
+        modeloTabla=new DefaultTableModel();
+        modeloTabla.addColumn("CODIGO ESTUDIANTE");
+        modeloTabla.addColumn("CODIGO ASIGNATURA");
+        modeloTabla.addColumn("NOMBRE ASIGNATURA");
+        modeloTabla.addColumn("NOTA 1");
+        modeloTabla.addColumn("NOTA 2");
+        modeloTabla.addColumn("NOTA 3");
+        modeloTabla.addColumn("DEFINITIVA");
+        tabla.setModel(modeloTabla);
+    }
+    
+    private void Limpiar_Tabla(){
+       for (int i = 0; i < tabla.getRowCount(); i++) {
+           modeloTabla.removeRow(i);
+           i-=1;
+       }
+   }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -494,28 +515,12 @@ public class Interfaz_Grafica extends javax.swing.JFrame {
     private void mostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mostrarActionPerformed
         panelingresa.setVisible(false);
         panelmostrar.setVisible(true);
-
-        try {
-            reg.obtener_Lista_Notas("Notas.txt");
-
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-
-        modeloTabla = new DefaultTableModel();
-        //damos el nombre a cada una de las columnas de la tabla
-        modeloTabla = new DefaultTableModel();
-        modeloTabla.addColumn("CODIGO ESTUDIANTE");
-        modeloTabla.addColumn("CODIGO ASIGNATURA");
-        modeloTabla.addColumn("NOMBRE ASIGNATURA");
-        modeloTabla.addColumn("NOTA 1");
-        modeloTabla.addColumn("NOTA 2");
-        modeloTabla.addColumn("NOTA 3");
-        modeloTabla.addColumn("DEFINITIVA");
-        tabla.setModel(modeloTabla);
-
-        ArrayList aux = reg.obtenerNotas();
-        for (int i = 0; i < aux.size(); i++) {
+        Limpiar_Tabla();
+         try {
+             modelo();
+            
+             ArrayList aux = reg.obtenerNotas();
+            for (int i = 0; i < aux.size(); i++) {
             ConsolidadoNotas notas = (ConsolidadoNotas) aux.get(i);
             String[] fila = new String[7];
             fila[0] = String.valueOf(notas.getCodest());
@@ -528,12 +533,21 @@ public class Interfaz_Grafica extends javax.swing.JFrame {
             modeloTabla.addRow(fila);
         }
 
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+        
+
+       
+
 
     }//GEN-LAST:event_mostrarActionPerformed
 
     private void volverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_volverActionPerformed
         panelingresa.setVisible(true);
         panelmostrar.setVisible(false);
+       
     }//GEN-LAST:event_volverActionPerformed
 
     private void salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirActionPerformed
